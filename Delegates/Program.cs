@@ -38,23 +38,33 @@ try
     Console.WriteLine($"Result:{del(double.Parse(numbers[0]),double.Parse(numbers[1]))}");
     int hour=DateTime.Now.Hour;
     Message mes;
-    if (hour >= 6) mes = GoodMorning;
-    else if (hour > 9 && hour < 18) mes = GoodAfternoon;
-    else if (hour > 18 && hour < 22) mes = GoodEvening;
+    if (hour >= 6&&hour<9) mes = GoodMorning;
+    else if (hour >= 9 && hour < 18) mes = GoodAfternoon;
+    else if (hour >= 18 && hour < 22) mes = GoodEvening;
     else mes = GoodNight;
     mes();
-    Message mes1 = Hello;
-    Message mes2 = HowAreYou;
+    Message mes1 = GoodMorning;
+    Message mes2 = GoodAfternoon;
     Message mes3 = mes1 + mes2;
     mes3();
-
-
+    CalcDelegate del1 = calculator.Add;
+    del1 += calculator.Sub;
+    del1-= calculator.Sub;
+    Console.WriteLine(del1(5,4));
+    DoOperation(5, 4, calculator.Add);
+    DoOperation(5, 4, calculator.Sub);
+    DoOperation(5, 4, calculator.Mult);
+    DoOperation(5, 4, calculator.Div);
 }
 catch (Exception ex)
 {
     Console.WriteLine(ex.ToString());
 }
 
+void DoOperation(double x,double y, CalcDelegate calc)
+{
+    Console.WriteLine(calc(x,y));
+}
 
 void GoodMorning()
 {
@@ -72,7 +82,4 @@ void GoodNight()
 {
     Console.WriteLine("Доброй ночи");
 }
-void Hello() => Console.WriteLine("Hello");
-
-void HowAreYou() => Console.WriteLine("How are you?");
 
